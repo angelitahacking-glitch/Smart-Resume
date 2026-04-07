@@ -266,61 +266,67 @@ const App: React.FC = () => {
             ) : (
               <div className="space-y-8 animate-in fade-in slide-in-from-right-10 duration-1000">
                 {/* 诊断板块 */}
-                <section className="glass-card rounded-[32px] p-10 relative group">
-                  <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">问题诊断</h3>
-                    <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-white/60">Insight</span>
-                  </div>
-                  <div className="space-y-6">
-                    {result.diagnosis.map((item, idx) => (
-                      <div key={idx} className="flex gap-6 items-start group/item">
-                        <span className="text-xl font-black text-white/10 group-hover/item:text-white/40 transition-colors">0{idx+1}</span>
-                        <p className="text-lg font-medium leading-relaxed text-white/80">{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* 方案板块 */}
-                <section className="glass-card rounded-[32px] p-10 bg-gradient-to-br from-white/[0.08] to-transparent">
-                  <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">优化方案</h3>
-                    <button 
-                      onClick={() => {
-                        navigator.clipboard.writeText(result.optimizedResume);
-                        alert('已复制');
-                      }}
-                      className="text-[10px] font-bold uppercase text-white/40 hover:text-white flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/5"
-                    >
-                      <i className="fas fa-copy"></i> Copy
-                    </button>
-                  </div>
-                  <div className="bg-black/40 rounded-2xl p-8 font-mono text-sm leading-loose text-white/60 border border-white/5 shadow-inner whitespace-pre-wrap">
-                    {result.optimizedResume}
-                  </div>
-                </section>
-
-                {/* 匹配板块 */}
-                <section className="glass-card rounded-[32px] p-10">
-                  <div className="flex items-center justify-between mb-10">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">职位匹配</h3>
-                    <div className="flex gap-1.5">
-                      {[1,2,3,4,5].map(i => (
-                        <div key={i} className={`w-1.5 h-1.5 rounded-full ${i <= 4 ? 'bg-white' : 'bg-white/10'}`}></div>
+                {result && (
+                  <section className="glass-card rounded-[32px] p-10 relative group">
+                    <div className="flex items-center justify-between mb-8">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">问题诊断</h3>
+                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-white/60">Insight</span>
+                    </div>
+                    <div className="space-y-6">
+                      {result.diagnosis.map((item, idx) => (
+                        <div key={idx} className="flex gap-6 items-start group/item">
+                          <span className="text-xl font-black text-white/10 group-hover/item:text-white/40 transition-colors">0{idx+1}</span>
+                          <p className="text-lg font-medium leading-relaxed text-white/80">{item}</p>
+                        </div>
                       ))}
                     </div>
-                  </div>
-                  <div className="grid gap-6">
-                    {result.matchingSuggestions.map((item, idx) => (
-                      <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl flex items-center gap-6 hover:bg-white/[0.05] transition-all duration-500">
-                        <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0">
-                          <i className="fas fa-arrow-right text-[10px] text-white/40"></i>
-                        </div>
-                        <p className="text-sm font-bold text-white/80">{item}</p>
+                  </section>
+                )}
+
+                {/* 方案板块 */}
+                {result && (
+                  <section className="glass-card rounded-[32px] p-10 bg-gradient-to-br from-white/[0.08] to-transparent">
+                    <div className="flex items-center justify-between mb-8">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">优化方案</h3>
+                      <button 
+                        onClick={() => {
+                          navigator.clipboard.writeText(result.optimizedResume);
+                          alert('已复制');
+                        }}
+                        className="text-[10px] font-bold uppercase text-white/40 hover:text-white flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/5"
+                      >
+                        <i className="fas fa-copy"></i> Copy
+                      </button>
+                    </div>
+                    <div className="bg-black/40 rounded-2xl p-8 font-mono text-sm leading-loose text-white/60 border border-white/5 shadow-inner whitespace-pre-wrap">
+                      {result.optimizedResume}
+                    </div>
+                  </section>
+                )}
+
+                {/* 匹配板块 */}
+                {result && (
+                  <section className="glass-card rounded-[32px] p-10">
+                    <div className="flex items-center justify-between mb-10">
+                      <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">职位匹配</h3>
+                      <div className="flex gap-1.5">
+                        {[1,2,3,4,5].map(i => (
+                          <div key={i} className={`w-1.5 h-1.5 rounded-full ${i <= 4 ? 'bg-white' : 'bg-white/10'}`}></div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </section>
+                    </div>
+                    <div className="grid gap-6">
+                      {result.matchingSuggestions.map((item, idx) => (
+                        <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl flex items-center gap-6 hover:bg-white/[0.05] transition-all duration-500">
+                          <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0">
+                            <i className="fas fa-arrow-right text-[10px] text-white/40"></i>
+                          </div>
+                          <p className="text-sm font-bold text-white/80">{item}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
               </div>
             )}
           </div>
