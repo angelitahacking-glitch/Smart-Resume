@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-white antialiased overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)];
+  }
+  
+  .glass-input {
+    @apply bg-white/[0.03] border border-white/10 backdrop-blur-md transition-all duration-300;
+  }
+  
+  .glass-input:focus {
+    @apply bg-white/[0.08] border-white/30 ring-0;
+  }
+
+  .premium-button {
+    @apply relative overflow-hidden bg-white text-black font-bold transition-all duration-500 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .premium-button::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full skew-x-12 transition-transform duration-1000;
+  }
+
+  .premium-button:hover::after {
+    @apply translate-x-full;
+  }
+}
+
+/* 莫兰蒂色系大弥散背景 */
+.mesh-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  filter: blur(100px);
+  opacity: 0.4;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.blob-1 {
+  width: 600px;
+  height: 600px;
+  background: #91a3b0; /* 莫兰蒂蓝灰 */
+  top: -100px;
+  right: -100px;
+  animation: float 20s infinite alternate;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: #b4a7d6; /* 莫兰蒂紫 */
+  bottom: -50px;
+  left: -100px;
+  animation: float 25s infinite alternate-reverse;
+}
+
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: #d5a6bd; /* 莫兰蒂粉 */
+  top: 40%;
+  left: 30%;
+  animation: float 18s infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(100px, 50px) scale(1.1); }
+}
+
+@keyframes loading-scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.animate-scan {
+  animation: loading-scan 2s infinite linear;
+}
+
+/* 鼠标跟随弥散光效 */
+.cursor-glow {
+  position: fixed;
+  width: 250px; /* 缩小尺寸 */
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 80%); /* 提高透明度增强明显感 */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  filter: blur(40px); /* 减小模糊度使光团更凝聚 */
+  transition: opacity 0.5s ease;
+  will-change: left, top;
+}
+
+/* 自定义滚动条 - Apple 风格 */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
