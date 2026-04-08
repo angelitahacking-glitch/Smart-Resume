@@ -6,19 +6,50 @@
   body {
     @apply bg-[#050505] text-white antialiased overflow-x-hidden;
   }
+  
+  * {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  
+  textarea {
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    white-space: normal !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    resize: none !important;
+  }
+  
+  /* 确保textarea的父容器也不会超出 */
+  .glass-card > * {
+    max-width: 100% !important;
+  }
 }
 
 @layer components {
   .glass-card {
     @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)];
+    overflow: hidden !important;
   }
   
   .glass-input {
     @apply bg-white/[0.03] border border-white/10 backdrop-blur-md transition-all duration-300;
   }
+
+  textarea.glass-input {
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    white-space: normal !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
   
   .glass-input:focus {
     @apply bg-white/[0.08] border-white/30 ring-0;
+    transition: all 0.3s ease-in-out;
   }
 
   .premium-button {
@@ -92,6 +123,15 @@
 
 .animate-scan {
   animation: loading-scan 2s infinite linear;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
 }
 
 /* 鼠标跟随弥散光效 */
